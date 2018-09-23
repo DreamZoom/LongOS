@@ -1,6 +1,6 @@
 SOURCES = ./src/
 OUTPUT = ./build/
-OUTPUT2 = .\\build\\
+OUTPUT_DIR = .\\build\\
 TOOLPATH = ./tools/
 INCPATH  = $(SOURCES)/syslibs/
 
@@ -47,11 +47,11 @@ $(OUTPUT)bootpack.hrb : $(OUTPUT)bootpack.bim Makefile
 	$(BIM2HRB) $(OUTPUT)bootpack.bim $(OUTPUT)bootpack.hrb 0
 
 $(OUTPUT)haribote.sys : $(OUTPUT)asmhead.bin $(OUTPUT)bootpack.hrb Makefile
-	copy /b $(OUTPUT2)asmhead.bin+$(OUTPUT2)bootpack.hrb $(OUTPUT2)haribote.sys
+	copy /b $(OUTPUT_DIR)asmhead.bin+$(OUTPUT_DIR)bootpack.hrb $(OUTPUT_DIR)haribote.sys
 
 $(OUTPUT)longos.img : $(OUTPUT)ipl.bin $(OUTPUT)haribote.sys Makefile
 	edimg imgin:$(SOURCES)template.img wbinimg src:$(OUTPUT)ipl.bin len:512 from:0 to:0 copy from:$(OUTPUT)haribote.sys to:@: imgout:$(OUTPUT)longos.img
 	
 	
 clean :
-	-$(DEL) $(OUTPUT2)*.*
+	-$(DEL) $(OUTPUT_DIR)*.*
