@@ -6,8 +6,8 @@
 	EXTERN	_io_hlt
 [FILE "bootpack.c"]
 [SECTION .text]
-	GLOBAL	_HariMain
-_HariMain:
+	GLOBAL	_LongMain
+_LongMain:
 	PUSH	EBP
 	MOV	EDX,655360
 	MOV	EBP,ESP

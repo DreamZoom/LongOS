@@ -6,8 +6,8 @@
      6 00000000                                 	EXTERN	_io_hlt
      7 00000000                                 [FILE "bootpack.c"]
      8                                          [SECTION .text]
-     9 00000000                                 	GLOBAL	_HariMain
-    10 00000000                                 _HariMain:
+     9 00000000                                 	GLOBAL	_LongMain
+    10 00000000                                 _LongMain:
     11 00000000 55                              	PUSH	EBP
     12 00000001 BA 000A0000                     	MOV	EDX,655360
     13 00000006 89 E5                           	MOV	EBP,ESP
