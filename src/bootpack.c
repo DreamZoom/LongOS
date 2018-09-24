@@ -7,6 +7,7 @@ void io_store_eflags(int eflags);
 void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
 void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1);
+void drawScreen();
 
 #define COL8_000000		0
 #define COL8_FF0000		1
@@ -27,15 +28,9 @@ void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, i
 
 void LongMain(void)
 {
-	char *p; /* ??地址指? */
-
 	init_palette(); /* ?色?置 */
 
-	p = (char *) 0xa0000; /* ??内存地址 */
-
-	boxfill8(p, 320, COL8_FF0000,  20,  20, 120, 120);
-	boxfill8(p, 320, COL8_00FF00,  70,  50, 170, 150);
-	boxfill8(p, 320, COL8_0000FF, 120,  80, 220, 180);
+	drawScreen();
 
 	for (;;) {
 		io_hlt();
@@ -45,34 +40,32 @@ void LongMain(void)
 void init_palette(void)
 {
 	static unsigned char table_rgb[16 * 3] = {
-		0x00, 0x00, 0x00,	/*  0:黒 */
-		0xff, 0x00, 0x00,	/*  1:明るい赤 */
-		0x00, 0xff, 0x00,	/*  2:明るい緑 */
-		0xff, 0xff, 0x00,	/*  3:明るい黄色 */
-		0x00, 0x00, 0xff,	/*  4:明るい青 */
-		0xff, 0x00, 0xff,	/*  5:明るい紫 */
-		0x00, 0xff, 0xff,	/*  6:明るい水色 */
-		0xff, 0xff, 0xff,	/*  7:白 */
-		0xc6, 0xc6, 0xc6,	/*  8:明るい灰色 */
-		0x84, 0x00, 0x00,	/*  9:暗い赤 */
-		0x00, 0x84, 0x00,	/* 10:暗い緑 */
-		0x84, 0x84, 0x00,	/* 11:暗い黄色 */
-		0x00, 0x00, 0x84,	/* 12:暗い青 */
-		0x84, 0x00, 0x84,	/* 13:暗い紫 */
-		0x00, 0x84, 0x84,	/* 14:暗い水色 */
-		0x84, 0x84, 0x84	/* 15:暗い灰色 */
+		0x00, 0x00, 0x00,	
+		0xff, 0x00, 0x00,	
+		0x00, 0xff, 0x00,	
+		0xff, 0xff, 0x00,	
+		0x00, 0x00, 0xff,	
+		0xff, 0x00, 0xff,	
+		0x00, 0xff, 0xff,	
+		0xff, 0xff, 0xff,	
+		0xc6, 0xc6, 0xc6,	
+		0x84, 0x00, 0x00,	
+		0x00, 0x84, 0x00,	
+		0x84, 0x84, 0x00,	
+		0x00, 0x00, 0x84,	
+		0x84, 0x00, 0x84,	
+		0x00, 0x84, 0x84,	
+		0x84, 0x84, 0x84
 	};
 	set_palette(0, 15, table_rgb);
 	return;
-
-	/* static char 命令は、データにしか使えないけどDB命令相当 */
 }
 
 void set_palette(int start, int end, unsigned char *rgb)
 {
 	int i, eflags;
-	eflags = io_load_eflags();	/* ?取?志位寄存器 */
-	io_cli(); 					/* 禁止中断?理 */
+	eflags = io_load_eflags();	
+	io_cli(); 					
 	io_out8(0x03c8, start);
 	for (i = start; i <= end; i++) {
 		io_out8(0x03c9, rgb[0] / 4);
@@ -80,7 +73,7 @@ void set_palette(int start, int end, unsigned char *rgb)
 		io_out8(0x03c9, rgb[2] / 4);
 		rgb += 3;
 	}
-	io_store_eflags(eflags);	/* 恢??志位寄存器 */
+	io_store_eflags(eflags);
 	return;
 }
 
@@ -92,4 +85,14 @@ void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, i
 			vram[y * xsize + x] = c;
 	}
 	return;
+}
+
+
+void drawScreen(){
+	char *p; 
+	p = (char *) 0xa0000; 
+
+	boxfill8(p, 320, COL8_FF0000,  20,  20, 120, 120);
+	boxfill8(p, 320, COL8_00FF00,  70,  50, 170, 150);
+	boxfill8(p, 320, COL8_0000FF, 120,  80, 220, 180);
 }

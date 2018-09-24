@@ -7,32 +7,7 @@ _LongMain:
 	pushl	%ebp
 	movl	%esp, %ebp
 	call	_init_palette
-	pushl	$120
-	pushl	$120
-	pushl	$20
-	pushl	$20
-	pushl	$1
-	pushl	$320
-	pushl	$655360
-	call	_boxfill8
-	pushl	$150
-	pushl	$170
-	pushl	$50
-	pushl	$70
-	pushl	$2
-	pushl	$320
-	pushl	$655360
-	call	_boxfill8
-	addl	$56, %esp
-	pushl	$180
-	pushl	$220
-	pushl	$80
-	pushl	$120
-	pushl	$4
-	pushl	$320
-	pushl	$655360
-	call	_boxfill8
-	addl	$28, %esp
+	call	_drawScreen
 L2:
 	call	_io_hlt
 	jmp	L2
@@ -205,11 +180,44 @@ L26:
 	popl	%edi
 	popl	%ebp
 	ret
+	.balign 2
+.globl _drawScreen
+	.def	_drawScreen;	.scl	2;	.type	32;	.endef
+_drawScreen:
+	pushl	%ebp
+	movl	%esp, %ebp
+	pushl	$120
+	pushl	$120
+	pushl	$20
+	pushl	$20
+	pushl	$1
+	pushl	$320
+	pushl	$655360
+	call	_boxfill8
+	pushl	$150
+	pushl	$170
+	pushl	$50
+	pushl	$70
+	pushl	$2
+	pushl	$320
+	pushl	$655360
+	call	_boxfill8
+	addl	$56, %esp
+	pushl	$180
+	pushl	$220
+	pushl	$80
+	pushl	$120
+	pushl	$4
+	pushl	$320
+	pushl	$655360
+	call	_boxfill8
+	leave
+	ret
 	.def	_io_store_eflags;	.scl	2;	.type	32;	.endef
 	.def	_io_out8;	.scl	2;	.type	32;	.endef
 	.def	_io_cli;	.scl	2;	.type	32;	.endef
 	.def	_io_load_eflags;	.scl	2;	.type	32;	.endef
 	.def	_set_palette;	.scl	2;	.type	32;	.endef
 	.def	_io_hlt;	.scl	2;	.type	32;	.endef
-	.def	_boxfill8;	.scl	2;	.type	32;	.endef
+	.def	_drawScreen;	.scl	2;	.type	32;	.endef
 	.def	_init_palette;	.scl	2;	.type	32;	.endef

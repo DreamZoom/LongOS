@@ -1,27 +1,28 @@
-text size :    432(0x001B0)
+text size :    439(0x001B7)
 data size :     48(0x00030)
 bss  size :      0(0x00000)
 
 0x00000024 : (.text)
 0x00000024 : _LongMain
-0x00000090 : _init_palette
-0x000000A3 : _set_palette
-0x0000012B : _boxfill8
-0x0000017C : _io_hlt
-0x0000017C : (.text)
-0x0000017E : _io_cli
-0x00000180 : _io_sti
-0x00000182 : _io_stihlt
-0x00000185 : _io_in8
-0x00000190 : _io_in16
-0x0000019C : _io_in32
-0x000001A2 : _io_out8
-0x000001AC : _io_out16
-0x000001B7 : _io_out32
-0x000001C1 : _io_load_eflags
-0x000001C4 : _io_store_eflags
-0x000001CB : (.text)
-0x000001CB : _LongStartup
+0x00000038 : _init_palette
+0x0000004B : _set_palette
+0x000000D3 : _boxfill8
+0x00000124 : _drawScreen
+0x00000183 : _io_hlt
+0x00000183 : (.text)
+0x00000185 : _io_cli
+0x00000187 : _io_sti
+0x00000189 : _io_stihlt
+0x0000018C : _io_in8
+0x00000197 : _io_in16
+0x000001A3 : _io_in32
+0x000001A9 : _io_out8
+0x000001B3 : _io_out16
+0x000001BE : _io_out32
+0x000001C8 : _io_load_eflags
+0x000001CB : _io_store_eflags
+0x000001D2 : (.text)
+0x000001D2 : _LongStartup
 0x00000000 : (.data)
 0x00000000 : (.data)
 0x00310000 : (.data)
